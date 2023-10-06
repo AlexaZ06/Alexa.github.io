@@ -1,26 +1,37 @@
 // Ball Object Notation Demo
 // October 5
 
-
-let theBall = {
-  x: 100,
-  y: 100,
-  radius: 25,
-  r:255,
-  g:0,
-  b:0,
-  dx:-4,
-  dy:3,
-};
+let theBall;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  theBall = spawnBall();
 }
 
 function draw() {
   background(220);
   moveBall();
   displayBall();
+}
+
+function keyTyped() {
+  if (key === " "){
+    theBall = spawnBall();
+  }
+}
+
+function spawnBall(){
+  let theBall = {
+    x: random(width),
+    y: random(height),
+    radius: random(15,30),
+    r:random(255),
+    g:random(255),
+    b:random(255),
+    dx:random(-5,5),
+    dy:random(-5,5),
+  };
+  return theBall;
 }
 
 function displayBall() {
@@ -30,24 +41,26 @@ function displayBall() {
 
 function moveBall() {
   // off right
-  if (theBall.x > windowWidth){
-    theBall.x = 0;
-  }
-
-  // off bottom
-  if (theBall.y > windowHeight){
-    theBall.y = 0;
+  if (theBall.x - theBall.radius > width){
+    theBall.x = 0 - theBall.radius;
   }
 
   // off left
-  if (theBall.x < 0){
-    theBall.x = windowWidth;
+  else if (theBall.x < 0 - theBall.radius){
+    theBall.x = width + theBall.radius;
+  }
+
+  // off bottom
+  if (theBall.y - theBall.radius > height){
+    theBall.y = 0 - theBall.radius;
   }
 
   // off top
-  if (theBall.y < 0){
-    theBall.y = windowHeight;
+  else if (theBall.y < 0 - theBall.radius){
+    theBall.y = height + theBall.radius;
   }
   theBall.x += theBall.dx;
   theBall.y += theBall.dy;
+
+  console.log(theBall.x, theBall.y);
 }
