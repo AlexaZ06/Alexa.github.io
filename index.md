@@ -6,3 +6,4 @@
 
 ## Projects
 - [Interactive Scene](02-dodge)
+- [Objects and Arrays](04-objects)
