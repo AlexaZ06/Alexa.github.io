@@ -1,4 +1,4 @@
-// Ball Object Notation Demo
+// Ball Array Notation Demo
 // October 5
 
 let ballArray = [];
