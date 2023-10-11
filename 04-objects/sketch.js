@@ -3,7 +3,9 @@
 // Date
 //
 // Extra for Experts:
-// - describe what you did to take this project "above and beyond"
+// - https://stackoverflow.com/questions/1584854/how-to-draw-a-3d-sphere
+// - https://www.geeksforgeeks.org/p5-js-sphere-function/
+// - https://p5js.org/reference/#/p5/sphere 
 
 
 function setup() {
