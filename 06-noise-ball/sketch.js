@@ -16,12 +16,12 @@ function setup() {
 function draw() {
   for (let theBall of ballArray){
     fill(theBall.color);
-    circle(theBall.x, theBall.y, theBall.size);
+
     // move
     theBall.x = noise(theBall.time)*width;
     theBall.y = noise(theBall.time + 300)*height;
     //display
-  
+    circle(theBall.x, theBall.y, theBall.size);
     theBall.time += 0.01;
   }
 }
