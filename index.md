@@ -8,4 +8,4 @@
 
 ## Projects
 - [Interactive Scene](02-dodge)
-- [Objects and Arrays](04-objects)
+- [Objects and Arrays](04-bubbles)
