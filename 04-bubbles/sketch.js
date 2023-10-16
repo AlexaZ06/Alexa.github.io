@@ -12,31 +12,49 @@ let randy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
-  randx = random(-width/2, width/2)
-  randy = random(-height/2, height/2)
   makeBubble();
 }
 
 function draw() {
   displayBubble();
-  move();
+  bubbleMove();
 }
 
-// // spawn multiple
-// function keyTyped() {
-//   if (key === " "){
-//     let someBubble = makeBubble();
-//     bubbleArray.push(someBubble);
-//   }
-// }
+// spawn multiple
+function keyTyped() {
+  if (key === " "){
+    let someBubble = makeBubble();
+  }
+}
 
 // bubble moves around
-function move() {
+function bubbleMove() {
   for (let theBubble of bubbleArray){
     fill(theBubble.color);
+
+    // off right
+    if (theBubble.x - theBubble.radius > width/2){
+      theBubble.x = -width/2 - theBubble.radius;
+    }
+        
+    // off left
+    else if (theBubble.x < -width/2 - theBubble.radius){
+      theBubble.x = width + theBubble.radius;
+    }
+        
+    // off bottom
+    if (theBubble.y - theBubble.radius > height/2){
+      theBubble.y = -height/2 - theBubble.radius;
+    }
+        
+    // off top
+    else if (theBubble.y < -height/2 - theBubble.radius){
+      theBubble.y = height/2 + theBubble.radius;
+    }
+      
     // move
-    theBubble.x = noise(theBubble.time)*randx;
-    theBubble.y = noise(theBubble.time - 100)*randy;
+    theBubble.x = noise(theBubble.time)*width - width/2;
+    theBubble.y = noise(theBubble.time - 300)*height - height/2;
     theBubble.time += 0.001;
   }
 }
@@ -44,8 +62,8 @@ function move() {
 //display bubbles on screen
 function displayBubble() {
   background("white");
-  for (let i = 0; i < bubbleArray.length; i++){
-    let theBubble = bubbleArray[i];
+
+  for (let theBubble of bubbleArray){
     // the bubble
     translate(theBubble.x, theBubble.y, theBubble.z);
     push();
@@ -62,7 +80,7 @@ function makeBubble() {
   let bubble = {
     x: random(-width/2, width/2),
     y: random(-height/2, height/2),
-    z: random(-1000),
+    z: random(-10, 10),
     radius: random(25,75),
     time: random(500),
     color: color(random(255), random(255), random(255), random(255)),
@@ -70,22 +88,3 @@ function makeBubble() {
   bubbleArray.push(bubble);
 }
 
-// // off the right
-// if (theBubble.x - theBubble.radius > width/2){
-//   theBall.x = 0 - theBall.radius;
-// }
-
-// // off left
-// else if (theBubble.x < -width/2 - theBubble.radius){
-//   theBubble.x = width/2 + theBubble.radius;
-// }
-
-// // off bottom
-// if (theBubble.y - theBubble.radius > height/2){
-//   theBubble.y = -height/2 - theBubble.radius;
-// }
-
-// // off top
-// else if (theBubble.y < -height/2 - theBubble.radius){
-//   theBubble.y = height/2 + theBubble.radius;
-// }
