@@ -17,7 +17,7 @@ function setup() {
 
 function draw() {
   displayBubble();
-  bubbleMove();
+  bubbleMovement();
 }
 
 // spawn multiple
@@ -27,33 +27,11 @@ function keyTyped() {
   }
 }
 
-// bubble moves around
-function bubbleMove() {
+function bubbleMovement(){
   for (let theBubble of bubbleArray){
-
-    // off right
-    if (theBubble.x - theBubble.radius > width/2){
-      theBubble.x = width/2*-1 - theBubble.radius;
-    }
-        
-    // // off left
-    // else if (theBubble.x < -width/2 - theBubble.radius){
-    //   theBubble.x = width + theBubble.radius;
-    // }
-        
-    // // off bottom
-    // if (theBubble.y - theBubble.radius > height/2){
-    //   theBubble.y = height/2* -1 - theBubble.radius;
-    // }
-        
-    // // off top
-    // else if (theBubble.y < -height/2 - theBubble.radius){
-    //   theBubble.y = height/2 + theBubble.radius;
-    // }
-      
     // move
-    theBubble.x = noise(theBubble.time)*width - width/2;
-    theBubble.y = noise(theBubble.time - 300)*height - height/2;
+    theBubble.x = noise(theBubble.time)*((width - (theBubble.radius*2)) - ((width/2) + theBubble.radius));
+    theBubble.y = noise(theBubble.time - 300)*((height - (theBubble.radius*2)) - ((height/2) + theBubble.radius));
     theBubble.time += 0.001;
   }
 }
@@ -78,8 +56,8 @@ function displayBubble() {
 // set up information to create a bubble
 function makeBubble() {
   let bubble = {
-    x: random(-width/2, width/2),
-    y: random(-height/2, height/2),
+    x: random(-width/10, width/10),
+    y: random(-height/10, height/10),
     z: random(-10, 10),
     radius: random(25,75),
     time: random(500),
