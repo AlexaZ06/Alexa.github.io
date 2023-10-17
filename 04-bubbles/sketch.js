@@ -1,4 +1,4 @@
-// Nusical Bubbles
+// Musical Bubbles
 // Alexandra Zhu
 // Date
 //
@@ -6,9 +6,9 @@
 // - https://p5js.org/reference/#/p5/WEBGL
 // - https://p5js.org/examples/3d-geometries.html
 
+
+// create array
 let bubbleArray = [];
-let randx;
-let randy;
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
@@ -30,27 +30,26 @@ function keyTyped() {
 // bubble moves around
 function bubbleMove() {
   for (let theBubble of bubbleArray){
-    fill(theBubble.color);
 
     // off right
     if (theBubble.x - theBubble.radius > width/2){
-      theBubble.x = -width/2 - theBubble.radius;
+      theBubble.x = width/2*-1 - theBubble.radius;
     }
         
-    // off left
-    else if (theBubble.x < -width/2 - theBubble.radius){
-      theBubble.x = width + theBubble.radius;
-    }
+    // // off left
+    // else if (theBubble.x < -width/2 - theBubble.radius){
+    //   theBubble.x = width + theBubble.radius;
+    // }
         
-    // off bottom
-    if (theBubble.y - theBubble.radius > height/2){
-      theBubble.y = -height/2 - theBubble.radius;
-    }
+    // // off bottom
+    // if (theBubble.y - theBubble.radius > height/2){
+    //   theBubble.y = height/2* -1 - theBubble.radius;
+    // }
         
-    // off top
-    else if (theBubble.y < -height/2 - theBubble.radius){
-      theBubble.y = height/2 + theBubble.radius;
-    }
+    // // off top
+    // else if (theBubble.y < -height/2 - theBubble.radius){
+    //   theBubble.y = height/2 + theBubble.radius;
+    // }
       
     // move
     theBubble.x = noise(theBubble.time)*width - width/2;
@@ -65,6 +64,7 @@ function displayBubble() {
 
   for (let theBubble of bubbleArray){
     // the bubble
+    fill(theBubble.colour);
     translate(theBubble.x, theBubble.y, theBubble.z);
     push();
     rotateZ(frameCount* 0.01);
@@ -83,7 +83,7 @@ function makeBubble() {
     z: random(-10, 10),
     radius: random(25,75),
     time: random(500),
-    color: color(random(255), random(255), random(255), random(255)),
+    colour: color(random(255), random(255), random(255), random(255)),
   };
   bubbleArray.push(bubble);
 }
