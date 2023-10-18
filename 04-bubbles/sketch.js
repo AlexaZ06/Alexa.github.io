@@ -19,8 +19,8 @@ let z = 10;
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   makeBubble();
-  // debugMode();
-  camera(width/4, height/2, height/2);
+  debugMode();
+  camera(width, 0, height*1.5, 0, 0, 0, 0, 1, 0);
 }
 
 function draw() {
@@ -38,11 +38,9 @@ function keyTyped() {
 function bubbleMovement(){
   for (let theBubble of bubbleArray){
     // move
-
     theBubble.x = noise(theBubble.time)*width - width/2;
     theBubble.y = noise(theBubble.time - 300)*height - height/2;
     theBubble.time += 0.001;
-    console.log("x: " + theBubble.x + " \ty: " + theBubble.y);
   }
 }
 
