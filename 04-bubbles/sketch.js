@@ -6,15 +6,21 @@
 // - https://p5js.org/reference/#/p5/WEBGL
 // - https://p5js.org/examples/3d-geometries.html
 
+// song list
+// - Merry-go-round of Life
+// - Always With Me
+// - The Path of the wind
 
 // create array
 let bubbleArray = [];
-let x;
-let y;
+let z = 10;
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   makeBubble();
+  // debugMode();
+  camera(width/4, height/2, height/2);
 }
 
 function draw() {
@@ -32,11 +38,11 @@ function keyTyped() {
 function bubbleMovement(){
   for (let theBubble of bubbleArray){
     // move
+
     theBubble.x = noise(theBubble.time)*width - width/2;
     theBubble.y = noise(theBubble.time - 300)*height - height/2;
-    theBubble.time += 0.01;
-    x = constrain(theBubble.x, -width/2, width/2 );
-    y = constrain(theBubble.y, -height/2, height/2)
+    theBubble.time += 0.001;
+    console.log("x: " + theBubble.x + " \ty: " + theBubble.y);
   }
 }
 
@@ -48,9 +54,9 @@ function displayBubble() {
     // the bubble
     fill(theBubble.colour);
     translate(theBubble.x, theBubble.y, theBubble.z);
-    // rotateZ(frameCount* 0.001);
-    // rotateX(frameCount* 0.001);
-    // rotateY(frameCount* 0.001);
+    rotateZ(frameCount* 0.001);
+    rotateX(frameCount* 0.001);
+    rotateY(frameCount* 0.001);
     sphere(theBubble.radius);
   }
 }
@@ -62,10 +68,8 @@ function makeBubble() {
     y: random(-height/2, height/2),
     z: random(-10, 10),
     radius: random(25,75),
-    time: random(2000),
+    time: random(1000),
     colour: color(random(255), random(255), random(255), random(255)),
-    transx: random(-100,100),
-    transy: random(-100,100),
   };
   bubbleArray.push(bubble);
 }
