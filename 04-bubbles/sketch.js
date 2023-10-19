@@ -1,10 +1,15 @@
 // Musical Bubbles
 // Alexandra Zhu
-// Date
+// October 19 2023
+//
+// Use the space bar to spawn spheres that move oaround the screen. 
+// There is a spotlight that follows the mouse. 
+//If you click the mouse a song will play according to the dominant colour of the sphere
 //
 // Extra for Experts:
 // - https://p5js.org/reference/#/p5/WEBGL
 // - https://p5js.org/examples/3d-geometries.html
+// - please consider the WEBGL in 3d and the material of the spheres as my extra for experts
 // - had help from Robert, Natalie, Mr. Schellenberg, and Alex
 
 // song list
@@ -15,6 +20,10 @@
 
 // create array and variables
 let bubbleArray = [];
+let camx = 0;
+let camy = 0;
+let camz;
+let limit = 9000;
 let merrygoround;
 let alwayswithme;
 let pathofthewind;
@@ -27,11 +36,14 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
+
+  // spawn first bubble
   makeBubble();
-  bubbleMovement;
+
   // debugMode();
-  //camera(width, height/2, height);
-  camera(0, 0, 1000);
+  // set camera
+  camz = width;
+  camera(camx, camy, camz);
 }
 
 function draw() {
@@ -49,35 +61,38 @@ function keyTyped() {
 
 // play sound
 function mousePressed(){
-  for (let i = 0; i <= bubbleArray.length; i++){
-    let theBubble = bubbleArray[i];
-    
-    // song that plays based on spheres predominant colour
-    if (!alwayswithme.isPlaying()
-    && theBubble.r >= theBubble.g
-    && theBubble.r >= theBubble.b ){
-      merrygoround.stop();
-      pathofthewind.stop();
-      alwayswithme.play();
-    }
-    else if (!pathofthewind.isPlaying()
-    && theBubble.g >= theBubble.r
-    && theBubble.g >= theBubble.b){
-      alwayswithme.stop();
-      merrygoround.stop();
-      pathofthewind.play();
-    }
-    else if (!merrygoround.isPlaying() 
-    && theBubble.b >= theBubble.g 
-    && theBubble.b >= theBubble.r){
-      alwayswithme.stop();
-      pathofthewind.stop();
-      merrygoround.play();
+  for (let theBubble of bubbleArray){
+    if (mousex < theBubble.radius
+    && mouseY < theBubble.radius){
+      //if red is dominant
+      if (!alwayswithme.isPlaying()
+      && theBubble.r >= theBubble.g
+      && theBubble.r >= theBubble.b ){
+        merrygoround.stop();
+        pathofthewind.stop();
+        alwayswithme.play();
+      }
+      // if green is dominant
+      else if (!pathofthewind.isPlaying()
+      && theBubble.g >= theBubble.r
+      && theBubble.g >= theBubble.b){
+        alwayswithme.stop();
+        merrygoround.stop();
+        pathofthewind.play();
+      }
+      // if blue is dominant
+      else if (!merrygoround.isPlaying() 
+      && theBubble.b >= theBubble.g 
+      && theBubble.b >= theBubble.r){
+        alwayswithme.stop();
+        pathofthewind.stop();
+        merrygoround.play();
+      }
     }
   }
-  // reset value of i
 }
-  
+
+//bubble moving on the screen
 function bubbleMovement(){
   for (let theBubble of bubbleArray){
     // move
@@ -90,14 +105,16 @@ function bubbleMovement(){
 //display bubbles on screen
 function displayBubble() {
   background("dimgray");
+  let amblit = 100;
+  let pntlit = 50;
 
   for (let theBubble of bubbleArray){
     // the bubble
     // fill(theBubble.r, theBubble.g, theBubble.b);
     normalMaterial();
-    ambientLight(100, 100, 100);
+    ambientLight(amblit, amblit, amblit);
     ambientMaterial(theBubble.r, theBubble.g, theBubble.b);
-    pointLight(100, 100, 100, (mouseX - width/2) * 1, (mouseY - height/2) * 1, 95);
+    pointLight(pntlit, pntlit, pntlit, (mouseX - width/2) * 1, (mouseY - height/2) * 1, 95);
     specularMaterial(theBubble.r / 5, theBubble.g / 5, theBubble.b / 5);
     translate(theBubble.x, theBubble.y, theBubble.z);
     sphere(theBubble.radius);
