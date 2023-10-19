@@ -5,6 +5,7 @@
 // Extra for Experts:
 // - https://p5js.org/reference/#/p5/WEBGL
 // - https://p5js.org/examples/3d-geometries.html
+// - had help from Robert, Natalie, Mr. Schellenberg, and Alex
 
 // song list
 // the songs were downloaded from YouTube
@@ -27,9 +28,10 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
   makeBubble();
-  camera(width, height/2, height);
-  currenttime = millis();
-  timelimit = 600000
+  bubbleMovement;
+  // debugMode();
+  //camera(width, height/2, height);
+  camera(0, 0, 1000);
 }
 
 function draw() {
@@ -49,7 +51,7 @@ function keyTyped() {
 function mousePressed(){
   for (let i = 0; i <= bubbleArray.length; i++){
     let theBubble = bubbleArray[i];
-
+    
     // song that plays based on spheres predominant colour
     if (!alwayswithme.isPlaying()
     && theBubble.r >= theBubble.g
@@ -61,9 +63,9 @@ function mousePressed(){
     else if (!pathofthewind.isPlaying()
     && theBubble.g >= theBubble.r
     && theBubble.g >= theBubble.b){
-    alwayswithme.stop();
-    merrygoround.stop();
-    pathofthewind.play();
+      alwayswithme.stop();
+      merrygoround.stop();
+      pathofthewind.play();
     }
     else if (!merrygoround.isPlaying() 
     && theBubble.b >= theBubble.g 
@@ -81,21 +83,23 @@ function bubbleMovement(){
     // move
     theBubble.x = noise(theBubble.time)*width - width/2;
     theBubble.y = noise(theBubble.time - 300)*height - height/2;
-    theBubble.time += 0.0001;
+    theBubble.time += 0.001;
   }
 }
 
 //display bubbles on screen
 function displayBubble() {
-  background("white");
+  background("dimgray");
 
   for (let theBubble of bubbleArray){
     // the bubble
-    fill(theBubble.r, theBubble.g, theBubble.b);
+    // fill(theBubble.r, theBubble.g, theBubble.b);
+    normalMaterial();
+    ambientLight(100, 100, 100);
+    ambientMaterial(theBubble.r, theBubble.g, theBubble.b);
+    pointLight(100, 100, 100, (mouseX - width/2) * 1, (mouseY - height/2) * 1, 95);
+    specularMaterial(theBubble.r / 5, theBubble.g / 5, theBubble.b / 5);
     translate(theBubble.x, theBubble.y, theBubble.z);
-    rotateZ(frameCount* 0.001);
-    rotateX(frameCount* 0.001);
-    rotateY(frameCount* 0.001);
     sphere(theBubble.radius);
   }
 }
