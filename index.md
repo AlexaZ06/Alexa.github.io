@@ -9,6 +9,7 @@
 - [Terrain Generation](08-terrain)
 - [Draw a Grid](09-2d-grid)
 - [Grid Neighbours](10-neighbours)
+- [Conway's Game of Life](11-life)
 
 ## Projects
 - [Interactive Scene](02-dodge)
