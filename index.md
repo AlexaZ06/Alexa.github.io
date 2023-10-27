@@ -14,3 +14,4 @@
 ## Projects
 - [Interactive Scene](02-dodge)
 - [Objects and Arrays](04-bubbles)
+- [2D Array Assignmnet](12-array-game)
