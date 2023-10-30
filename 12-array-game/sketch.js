@@ -1,6 +1,6 @@
 // Paint by Number
 // Alexandra Zhu
-// October XX 2023
+// November XX 2023
 //
 // Extra for Experts:
 // - pixalate image https://editor.p5js.org/aferriss/sketches/DmcJX_3pg 
@@ -10,6 +10,11 @@
 let grid;
 let cellSize;
 const GRID_SIZE = 15;
+let cat;
+
+function preload() {
+  cat = loadImage("cat.jpg");
+}
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
