@@ -8,41 +8,37 @@
 
 
 let grid;
+const GRID_SIZE = 40;
 let cellSize;
-const GRID_SIZE = 15;
 let cat;
 
-function preload() {
-  cat = loadImage("cat.jpg");
+function preload(){
+  cat = loadImage("cat.png");
 }
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
 
-  if (height < width){
-    cellSize = height/GRID_SIZE;
-  }
-  else if (height > width){
+  if (height > width) {
     cellSize = width/GRID_SIZE;
   }
+  else {
+    cellSize = height/GRID_SIZE;
+  }
 
-  grid = createEmptyGrid(cellSize,cellSize);
+  cat.resize(GRID_SIZE, GRID_SIZE);
 }
 
 function draw() {
-  background(220);
+  displayGrid();
 }
 
-// empty grid to fill in
-function createEmptyGrid(cols,rows){
-  let newGrid = [];
-  for (let y = 0; y < rows; y++){
-    newGrid.push([]);
-    for (let x = 0; x < cols; x++){
-      newGrid[y].push(0);
-    }
-  }
-  return newGrid;
+function mousePressed() {
+  let y = Math.floor(mouseY/cellSize);
+  let x = Math.floor(mouseX/cellSize);
+
+  toggleCell(x, y);   //current cell
 }
 
 function toggleCell(x, y) {
@@ -55,4 +51,30 @@ function toggleCell(x, y) {
       grid[y][x] = 0;
     }
   }
+}
+
+function displayGrid() {
+  for (let y = 0; y < GRID_SIZE; y++) {
+    for (let x = 0; x < GRID_SIZE; x++) {
+      if (grid[y][x] === 0) {
+        fill("white");
+      }
+      else if (grid[y][x] === 1) {
+        fill("black");
+      }
+      fill(cat.get(x, y));
+      rect(x*cellSize, y*cellSize, cellSize, cellSize);
+    }
+  }
+}
+
+function generateEmptyGrid(cols, rows) {
+  let newGrid = [];
+  for (let y = 0; y < rows; y++) {
+    newGrid.push([]);
+    for (let x = 0; x < cols; x++) {
+      newGrid[y].push(0);
+    }
+  }
+  return newGrid;
 }
