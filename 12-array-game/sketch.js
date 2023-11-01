@@ -4,13 +4,14 @@
 //
 // Extra for Experts:
 // - pixalate image https://editor.p5js.org/aferriss/sketches/DmcJX_3pg 
-// - 
+// - https://stackoverflow.com/questions/54707586/getting-pixel-values-of-images-in-p5js#:~:text=Lastly%2C%20to%20get%20the%20color,which%20are%20not%20strictly%20black.
 
 
 let grid;
 const GRID_SIZE = 40;
 let cellSize;
 let cat;
+let catcolour = [];
 
 function preload(){
   cat = loadImage("cat.png");
@@ -18,6 +19,7 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
   grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
 
   if (height > width) {
@@ -26,7 +28,7 @@ function setup() {
   else {
     cellSize = height/GRID_SIZE;
   }
-
+  
   cat.resize(GRID_SIZE, GRID_SIZE);
 }
 
@@ -44,12 +46,7 @@ function mousePressed() {
 function toggleCell(x, y) {
   //check that we are within the grid, then toggle
   if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
-    if (grid[y][x] === 0) {
-      grid[y][x] = 1;
-    }
-    else if (grid[y][x] === 1) {
-      grid[y][x] = 0;
-    }
+    // check for right colour then toggle to colour
   }
 }
 
