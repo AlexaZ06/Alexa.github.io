@@ -5,6 +5,7 @@
 // Extra for Experts:
 // - pixalate image https://editor.p5js.org/aferriss/sketches/DmcJX_3pg 
 // - https://stackoverflow.com/questions/54707586/getting-pixel-values-of-images-in-p5js#:~:text=Lastly%2C%20to%20get%20the%20color,which%20are%20not%20strictly%20black.
+// - https://stackoverflow.com/questions/25511497/storing-rgb-values-in-an-array
 
 
 let grid;
