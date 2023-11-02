@@ -6,6 +6,9 @@
 // - pixalate image https://editor.p5js.org/aferriss/sketches/DmcJX_3pg 
 // - https://stackoverflow.com/questions/54707586/getting-pixel-values-of-images-in-p5js#:~:text=Lastly%2C%20to%20get%20the%20color,which%20are%20not%20strictly%20black.
 // - https://stackoverflow.com/questions/25511497/storing-rgb-values-in-an-array
+// - https://p5js.org/reference/#/p5/pixelDensity
+// - https://p5js.org/reference/#/p5/loadPixels
+// - https://p5js.org/reference/#/p5/pixels
 
 
 let grid;
@@ -30,13 +33,29 @@ function setup() {
     cellSize = height/GRID_SIZE;
   }
   
-  cat.resize(GRID_SIZE, GRID_SIZE);
+  if (GRID_SIZE >= 40){
+    cat.resize(GRID_SIZE, GRID_SIZE);
+    // getColours();
+  }
+  else {
+    grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
+  }
 }
 
 function draw() {
   displayGrid();
 }
 
+//gather colours of cat
+// function getColours(){
+//   for (let y = 0; y < GRID_SIZE; y++) {
+//     for (let x = 0; x < GRID_SIZE; x++) {
+
+//     }
+//   }
+// }
+
+//fill in cell with colour when 
 function mousePressed() {
   let y = Math.floor(mouseY/cellSize);
   let x = Math.floor(mouseX/cellSize);
@@ -51,6 +70,7 @@ function toggleCell(x, y) {
   }
 }
 
+//show image
 function displayGrid() {
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
@@ -60,12 +80,18 @@ function displayGrid() {
       else if (grid[y][x] === 1) {
         fill("black");
       }
-      fill(cat.get(x, y));
-      rect(x*cellSize, y*cellSize, cellSize, cellSize);
+      if (GRID_SIZE >= 40){
+        fill(cat.get(x, y));
+        rect(x*cellSize, y*cellSize, cellSize, cellSize);
+      }
+      else{
+        rect(x*cellSize, y*cellSize, cellSize, cellSize);
+      }
     }
   }
 }
 
+//create grid
 function generateEmptyGrid(cols, rows) {
   let newGrid = [];
   for (let y = 0; y < rows; y++) {
