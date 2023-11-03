@@ -47,19 +47,6 @@ function draw() {
   displayGrid();
 }
 
-//gather colours of cat
-function getColours(){
-  for (let y = 0; y < GRID_SIZE; y++) {
-    for (let x = 0; x < GRID_SIZE; x++) {
-      loadPixels();
-      let d = pixelDensity();
-      //retrieve colors from pixel array
-      //assign numbers to colours
-      //return array
-    }
-  }
-}
-
 //fill in cell with colour when 
 function mousePressed() {
   let y = Math.floor(mouseY/cellSize);
@@ -107,3 +94,17 @@ function generateEmptyGrid(cols, rows) {
   }
   return newGrid;
 }
+
+//gather colours of cat
+function getCatColors(cols, rows) {
+  let colours = [];
+  for (let y = 0; y < rows; y++) {
+    colours.push([]);
+    for (let x = 0; x < cols; x++) {
+      colours[y].push(cat.get(x, y));
+    }
+  }
+  return colours;
+}
+
+//sign numbers to colours;
