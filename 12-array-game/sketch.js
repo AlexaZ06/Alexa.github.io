@@ -9,6 +9,7 @@
 // - https://p5js.org/reference/#/p5/pixelDensity
 // - https://p5js.org/reference/#/p5/loadPixels
 // - https://p5js.org/reference/#/p5/pixels
+// - https://youtu.be/loLh2Eo5kiA?si=o0qSYs5MvewfAgmi
 
 
 let grid;
@@ -47,13 +48,17 @@ function draw() {
 }
 
 //gather colours of cat
-// function getColours(){
-//   for (let y = 0; y < GRID_SIZE; y++) {
-//     for (let x = 0; x < GRID_SIZE; x++) {
-
-//     }
-//   }
-// }
+function getColours(){
+  for (let y = 0; y < GRID_SIZE; y++) {
+    for (let x = 0; x < GRID_SIZE; x++) {
+      loadPixels();
+      let d = pixelDensity();
+      //retrieve colors from pixel array
+      //assign numbers to colours
+      //return array
+    }
+  }
+}
 
 //fill in cell with colour when 
 function mousePressed() {
