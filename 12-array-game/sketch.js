@@ -3,20 +3,13 @@
 // November XX 2023
 //
 // Extra for Experts:
-// - pixalate image https://editor.p5js.org/aferriss/sketches/DmcJX_3pg 
-// - https://stackoverflow.com/questions/54707586/getting-pixel-values-of-images-in-p5js#:~:text=Lastly%2C%20to%20get%20the%20color,which%20are%20not%20strictly%20black.
-// - https://stackoverflow.com/questions/25511497/storing-rgb-values-in-an-array
-// - https://p5js.org/reference/#/p5/pixelDensity
-// - https://p5js.org/reference/#/p5/loadPixels
-// - https://p5js.org/reference/#/p5/pixels
-// - https://youtu.be/loLh2Eo5kiA?si=o0qSYs5MvewfAgmi
-
+// - Help from Mr Schellenberg to get colours from cat image
 
 let grid;
 const GRID_SIZE = 40;
 let cellSize;
 let cat;
-let catcolour = [];
+let catcolour;
 
 function preload(){
   cat = loadImage("cat.png");
@@ -36,7 +29,7 @@ function setup() {
   
   if (GRID_SIZE >= 40){
     cat.resize(GRID_SIZE, GRID_SIZE);
-    // getColours();
+    catcolour =   getCatColors(GRID_SIZE, GRID_SIZE);
   }
   else {
     grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
@@ -73,7 +66,7 @@ function displayGrid() {
         fill("black");
       }
       if (GRID_SIZE >= 40){
-        fill(cat.get(x, y));
+        fill(catcolour[y][x]);
         rect(x*cellSize, y*cellSize, cellSize, cellSize);
       }
       else{
@@ -107,4 +100,27 @@ function getCatColors(cols, rows) {
   return colours;
 }
 
-//sign numbers to colours;
+  //assign numbers to colours
+  function number(cols, rows) {   
+    let blocknum = []
+    for (let y = 0; y < rows; y++) {
+      blocknum.push([]);
+      for (let x = 0; x < cols; x++) {
+        // white
+        if(catcolour[y][x][0] <= 20 && catcolour[y][x][1] <= 20 && catcolour[y][x][2] <= 20){
+          blocknum[y].push(0);
+        }
+        // light grey
+
+        // dark grey
+
+        // pink 
+
+        // black
+        else if(catcolour[y][x][0] >= 200 && catcolour[y][x][1] >= 200 && catcolour[y][x][2] >= 200){
+          blocknum[y].push(5);
+        }
+      }
+    }
+    return blocknum;
+  }
