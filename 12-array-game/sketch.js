@@ -63,16 +63,11 @@ function toggleCell(x, y) {
 function displayGrid() {
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
-      if (grid[y][x] === 0) {
-        fill("white");
-      }
-      else if (grid[y][x] === 1) {
-        fill("black");
-      }
       if (GRID_SIZE >= 40){
         fill(catcolour[y][x]);
-        // text(blocknumber[y][x], x*cellSize, y*cellSize);
         rect(x*cellSize, y*cellSize, cellSize, cellSize);
+        textAlign(RIGHT,TOP);
+        text(blocknumber[y][x], x*cellSize, y*cellSize, cellSize, cellSize);
       }
       else{
         rect(x*cellSize, y*cellSize, cellSize, cellSize);
@@ -106,6 +101,7 @@ function getCatColors(cols, rows) {
 }
 
 //assign numbers to colours
+// opacity messes with the colour
 function number(cols, rows) {   
   let blocknum = [];
   for (let y = 0; y < rows; y++) {
@@ -113,21 +109,21 @@ function number(cols, rows) {
     for (let x = 0; x < cols; x++) {
 
       // white
-      if(catcolour[y][x][0] <= 200 && catcolour[y][x][1] <= 200 && catcolour[y][x][2] <= 200){
+      if(catcolour[y][x][0] >= 200 && catcolour[y][x][1] >= 200 && catcolour[y][x][2] >= 200){
         blocknum[y].push(0);
       }
 
       // light grey
-      else if(catcolour[y][x][0] < 200 && catcolour[y][x][0] >= 100 &&
-              catcolour[y][x][1] < 200 && catcolour[y][x][1] >= 100 &&
-              catcolour[y][x][2] < 200 && catcolour[y][x][2] >= 100){
+      else if(catcolour[y][x][0] < 200 && catcolour[y][x][0] >= 140 &&
+              catcolour[y][x][1] < 200 && catcolour[y][x][1] >= 140 &&
+              catcolour[y][x][2] < 200 && catcolour[y][x][2] >= 140){
         blocknum[y].push(1);
       }
 
       // dark grey
-      else if(catcolour[y][x][0] < 100 && catcolour[y][x][0] > 20 &&
-              catcolour[y][x][1] < 100 && catcolour[y][x][1] > 20 &&
-              catcolour[y][x][2] < 100 && catcolour[y][x][2] > 20){
+      else if(catcolour[y][x][0] < 140 && catcolour[y][x][0] > 40 &&
+              catcolour[y][x][1] < 140 && catcolour[y][x][1] > 40 &&
+              catcolour[y][x][2] < 140 && catcolour[y][x][2] > 40){
         blocknum[y].push(2);
       }
 
@@ -137,7 +133,7 @@ function number(cols, rows) {
       }
 
       // black
-      else if(catcolour[y][x][0] >= 20 && catcolour[y][x][1] >= 20 && catcolour[y][x][2] >= 20){
+      else if(catcolour[y][x][0] <= 40 && catcolour[y][x][1] <= 40 && catcolour[y][x][2] <= 40){
         blocknum[y].push(4);
       }
         
