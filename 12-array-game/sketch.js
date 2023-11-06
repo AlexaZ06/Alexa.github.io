@@ -3,7 +3,9 @@
 // November XX 2023
 //
 // Extra for Experts:
+//
 // - Help from Mr Schellenberg to get colours from cat image
+// - https://p5js.org/reference/#/p5/text
 
 let grid;
 const GRID_SIZE = 40;
@@ -69,6 +71,7 @@ function displayGrid() {
       }
       if (GRID_SIZE >= 40){
         fill(catcolour[y][x]);
+        // text(blocknumber[y][x], x*cellSize, y*cellSize);
         rect(x*cellSize, y*cellSize, cellSize, cellSize);
       }
       else{
@@ -110,7 +113,7 @@ function number(cols, rows) {
     for (let x = 0; x < cols; x++) {
 
       // white
-      if(catcolour[y][x][0] <= 20 && catcolour[y][x][1] <= 20 && catcolour[y][x][2] <= 20){
+      if(catcolour[y][x][0] <= 200 && catcolour[y][x][1] <= 200 && catcolour[y][x][2] <= 200){
         blocknum[y].push(0);
       }
 
@@ -123,8 +126,8 @@ function number(cols, rows) {
 
       // dark grey
       else if(catcolour[y][x][0] < 100 && catcolour[y][x][0] > 20 &&
-        catcolour[y][x][1] < 100 && catcolour[y][x][1] > 20 &&
-        catcolour[y][x][2] < 100 && catcolour[y][x][2] > 20){
+              catcolour[y][x][1] < 100 && catcolour[y][x][1] > 20 &&
+              catcolour[y][x][2] < 100 && catcolour[y][x][2] > 20){
         blocknum[y].push(2);
       }
 
@@ -134,7 +137,7 @@ function number(cols, rows) {
       }
 
       // black
-      if(catcolour[y][x][0] >= 200 && catcolour[y][x][1] >= 200 && catcolour[y][x][2] >= 200){
+      else if(catcolour[y][x][0] >= 20 && catcolour[y][x][1] >= 20 && catcolour[y][x][2] >= 20){
         blocknum[y].push(4);
       }
         
