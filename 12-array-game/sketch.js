@@ -3,9 +3,11 @@
 // November XX 2023
 //
 // Extra for Experts:
+// Please consider the text in the box as my extre for experts
+// - https://p5js.org/reference/#/p5/text was used for help
 //
 // - Help from Mr Schellenberg to get colours from cat image
-// - https://p5js.org/reference/#/p5/text
+// 
 
 let grid;
 const GRID_SIZE = 40;
@@ -13,6 +15,7 @@ let cellSize;
 let cat;
 let catcolour;
 let blocknumber;
+let colour = "green";
 
 function preload(){
   cat = loadImage("cat.png");
@@ -44,6 +47,25 @@ function draw() {
   displayGrid();
 }
 
+//change colour of fill
+function keyTyped(){
+  if (key === "l"){
+    colour = "lightgrey"
+  }
+  else if (key === "g"){
+    colour = "grey"
+  }
+  else if (key === "p"){
+    colour = "pink"
+  }
+  else if (key === "b"){
+    colour = "black"
+  }
+  else if (key === "w"){
+    colour = "white"
+  }
+}
+
 //fill in cell with colour when 
 function mousePressed() {
   let y = Math.floor(mouseY/cellSize);
@@ -56,16 +78,23 @@ function toggleCell(x, y) {
   //check that we are within the grid, then toggle
   if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
     // check for right colour then toggle to colour
+    if (colour === "white" && grid[y][x] === "green"){
+      grid[y][x] = fill(colour);
+    }
+    
   }
 }
 
-//show image
+//show image in numbers
 function displayGrid() {
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
+      //block colour
+      fill("green");
+      rect(x*cellSize, y*cellSize, cellSize, cellSize);
+
+      //fill in grid
       if (GRID_SIZE >= 40){
-        fill("green");
-        rect(x*cellSize, y*cellSize, cellSize, cellSize);
         fill(catcolour[y][x]);
         textAlign(LEFT,BOTTOM);
         text(blocknumber[y][x], x*cellSize, y*cellSize);
@@ -73,6 +102,24 @@ function displayGrid() {
       else{
         rect(x*cellSize, y*cellSize, cellSize, cellSize);
       }
+
+      // //numbers corresponding to colour
+      // if (grid[y][x] === 0){
+      //   fill("white");
+      // }
+      // else if (grid[y][x] === 1){
+      //   fill("lightgrey");
+      // }
+      // else if (grid[y][x] === 2){
+      //   fill("grey");
+      // }
+      // else if (grid[y][x] === 3){
+      //   fill("pink");
+      // }
+      // else if (grid[y][x] === 4){
+      //   fill("black");
+      // }
+      // rect(x*cellSize, y*cellSize, cellSize, cellSize);
     }
   }
 }
@@ -102,7 +149,6 @@ function getCatColors(cols, rows) {
 }
 
 //assign numbers to colours
-// opacity messes with the colour
 function number(cols, rows) {   
   let blocknum = [];
   for (let y = 0; y < rows; y++) {
