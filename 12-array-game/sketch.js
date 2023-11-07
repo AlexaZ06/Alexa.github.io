@@ -67,7 +67,7 @@ function displayGrid() {
         fill(catcolour[y][x]);
         rect(x*cellSize, y*cellSize, cellSize, cellSize);
         textAlign(RIGHT,TOP);
-        text(blocknumber[y][x], x*cellSize, y*cellSize, cellSize, cellSize);
+        text(blocknumber[y][x], x*cellSize, y*cellSize, CENTER);
       }
       else{
         rect(x*cellSize, y*cellSize, cellSize, cellSize);
