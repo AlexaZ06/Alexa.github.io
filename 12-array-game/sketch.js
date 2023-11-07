@@ -64,10 +64,11 @@ function displayGrid() {
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
       if (GRID_SIZE >= 40){
-        fill(catcolour[y][x]);
+        fill("green");
         rect(x*cellSize, y*cellSize, cellSize, cellSize);
-        textAlign(RIGHT,TOP);
-        text(blocknumber[y][x], x*cellSize, y*cellSize, CENTER);
+        fill(catcolour[y][x]);
+        textAlign(LEFT,BOTTOM);
+        text(blocknumber[y][x], x*cellSize, y*cellSize);
       }
       else{
         rect(x*cellSize, y*cellSize, cellSize, cellSize);
@@ -109,7 +110,8 @@ function number(cols, rows) {
     for (let x = 0; x < cols; x++) {
 
       // white
-      if(catcolour[y][x][0] >= 200 && catcolour[y][x][1] >= 200 && catcolour[y][x][2] >= 200){
+      if(catcolour[y][x][0] >= 200 && catcolour[y][x][1] >= 200 && catcolour[y][x][2] >= 200
+         || catcolour[y][x][0] <= 40 && catcolour[y][x][1] <= 40 && catcolour[y][x][2] <= 40 && catcolour[y][x][3] <= 40){
         blocknum[y].push(0);
       }
 
@@ -133,7 +135,8 @@ function number(cols, rows) {
       }
 
       // black
-      else if(catcolour[y][x][0] <= 40 && catcolour[y][x][1] <= 40 && catcolour[y][x][2] <= 40){
+      else if(catcolour[y][x][0] <= 40 && catcolour[y][x][1] <= 40 && catcolour[y][x][2] <= 40
+              || catcolour[y][x][3] >= 200){
         blocknum[y].push(4);
       }
         
