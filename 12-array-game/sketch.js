@@ -7,17 +7,18 @@
 // - https://p5js.org/reference/#/p5/text was used for help
 //
 // - Help from Mr Schellenberg to get colours from cat image
-// 
 
+//set variables and constants
 let grid;
 const GRID_SIZE = 40;
 let cellSize;
 let cat;
 let catcolour;
 let blocknumber;
-let colour = "green";
+let colour;
 
-function preload(){
+//load image to colour
+function preload() {
   cat = loadImage("cat.png");
 }
 
@@ -27,16 +28,16 @@ function setup() {
   grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
 
   if (height > width) {
-    cellSize = width/GRID_SIZE;
+    cellSize = width / GRID_SIZE;
   }
   else {
-    cellSize = height/GRID_SIZE;
+    cellSize = height / GRID_SIZE;
   }
-  
-  if (GRID_SIZE >= 40){
+
+  if (GRID_SIZE >= 40) {
     cat.resize(GRID_SIZE, GRID_SIZE);
-    catcolour =   getCatColors(GRID_SIZE, GRID_SIZE);
-    blocknumber = number(GRID_SIZE,GRID_SIZE);
+    catcolour = getCatColors(GRID_SIZE, GRID_SIZE);
+    blocknumber = number(GRID_SIZE, GRID_SIZE);
   }
   else {
     grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
@@ -48,28 +49,28 @@ function draw() {
 }
 
 //change colour of fill
-function keyTyped(){
-  if (key === "l"){
-    colour = "lightgrey"
+function keyTyped() {
+  if (key === "w") {
+    colour = 0;
   }
-  else if (key === "g"){
-    colour = "grey"
+  else if (key === "l") {
+    colour = 1;
   }
-  else if (key === "p"){
-    colour = "pink"
+  else if (key === "g") {
+    colour = 2;
   }
-  else if (key === "b"){
-    colour = "black"
+  else if (key === "b") {
+    colour = 3;
   }
-  else if (key === "w"){
-    colour = "white"
+  else if (key === "w") {
+    colour = 4;
   }
 }
 
 //fill in cell with colour when 
 function mousePressed() {
-  let y = Math.floor(mouseY/cellSize);
-  let x = Math.floor(mouseX/cellSize);
+  let y = Math.floor(mouseY / cellSize);
+  let x = Math.floor(mouseX / cellSize);
 
   toggleCell(x, y);   //current cell
 }
@@ -78,48 +79,71 @@ function toggleCell(x, y) {
   //check that we are within the grid, then toggle
   if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
     // check for right colour then toggle to colour
-    if (colour === "white" && grid[y][x] === "green"){
-      grid[y][x] = fill(colour);
+    for (let y = 0; y < GRID_SIZE; y++) {
+      for (let x = 0; x < GRID_SIZE; x++) {
+        if (blocknumber[y][x] === 0 && colour === 0) {
+          fill("white");
+        }
+        else if (blocknumber[y][x] === 1 && colour === 1) {
+          fill("lightgrey");
+        }
+        else if (blocknumber[y][x] === 2 && colour === 2) {
+          fill("grey");
+        }
+        else if (blocknumber[y][x] === 3 && colour === 3) {
+          fill("pink");
+        }
+        else if (blocknumber[y][x] === 4 && colour === 4) {
+          fill("black");
+        }
+        rect(x * cellSize, y * cellSize, cellSize, cellSize);
+      }
     }
-    
   }
 }
+
+// //colour/fill in cells
+// function colouredGrid(){
+//   for (let y = 0; y < GRID_SIZE; y++) {
+//     for (let x = 0; x < GRID_SIZE; x++) {
+//       if (blockNumber[y][x] === 0 && colour === 0) {
+//         fill("white");
+//       }
+//       else if (blockNumber[y][x] === 1 && colour === 1) {
+//         fill("lightgrey");
+//       }
+//       else if (blockNumber[y][x] === 2 && colour === 2) {
+//         fill("grey");
+//       }
+//       else if (blockNumber[y][x] === 3 && colour === 3) {
+//         fill("pink");
+//       }
+//       else if (blockNumber[y][x] === 4 && colour === 4) {
+//         fill("black");
+//       }
+//       rect(x * cellSize, y * cellSize, cellSize, cellSize);
+//     }
+//   }
+// }
 
 //show image in numbers
 function displayGrid() {
   for (let y = 0; y < GRID_SIZE; y++) {
     for (let x = 0; x < GRID_SIZE; x++) {
-      //block colour
-      fill("green");
-      rect(x*cellSize, y*cellSize, cellSize, cellSize);
+      if (GRID_SIZE >= 40) {
+        //block colour
+        fill("lightblue");
+        rect(x * cellSize, y * cellSize, cellSize, cellSize);
 
-      //fill in grid
-      if (GRID_SIZE >= 40){
-        fill(catcolour[y][x]);
-        textAlign(LEFT,BOTTOM);
-        text(blocknumber[y][x], x*cellSize, y*cellSize);
-      }
-      else{
-        rect(x*cellSize, y*cellSize, cellSize, cellSize);
+        //fill in grid with numbers
+        fill("black");
+        textAlign(CENTER, CENTER);
+        text(blocknumber[y][x], x * cellSize, y * cellSize, cellSize, cellSize);
       }
 
-      // //numbers corresponding to colour
-      // if (grid[y][x] === 0){
-      //   fill("white");
-      // }
-      // else if (grid[y][x] === 1){
-      //   fill("lightgrey");
-      // }
-      // else if (grid[y][x] === 2){
-      //   fill("grey");
-      // }
-      // else if (grid[y][x] === 3){
-      //   fill("pink");
-      // }
-      // else if (grid[y][x] === 4){
-      //   fill("black");
-      // }
-      // rect(x*cellSize, y*cellSize, cellSize, cellSize);
+      else {
+        rect(x * cellSize, y * cellSize, cellSize, cellSize);
+      }
     }
   }
 }
@@ -149,43 +173,43 @@ function getCatColors(cols, rows) {
 }
 
 //assign numbers to colours
-function number(cols, rows) {   
+function number(cols, rows) {
   let blocknum = [];
   for (let y = 0; y < rows; y++) {
     blocknum.push([]);
     for (let x = 0; x < cols; x++) {
 
-      // white
-      if(catcolour[y][x][0] >= 200 && catcolour[y][x][1] >= 200 && catcolour[y][x][2] >= 200
-         || catcolour[y][x][0] <= 40 && catcolour[y][x][1] <= 40 && catcolour[y][x][2] <= 40 && catcolour[y][x][3] <= 40){
+      //white
+      if (catcolour[y][x][0] >= 210 && catcolour[y][x][1] >= 210 && catcolour[y][x][2] >= 210
+        || catcolour[y][x][3] <= 40) {
         blocknum[y].push(0);
       }
 
-      // light grey
-      else if(catcolour[y][x][0] < 200 && catcolour[y][x][0] >= 140 &&
-              catcolour[y][x][1] < 200 && catcolour[y][x][1] >= 140 &&
-              catcolour[y][x][2] < 200 && catcolour[y][x][2] >= 140){
+      //light grey
+      else if (catcolour[y][x][0] < 210 && catcolour[y][x][0] >= 140 &&
+        catcolour[y][x][1] < 210 && catcolour[y][x][1] >= 140 &&
+        catcolour[y][x][2] < 210 && catcolour[y][x][2] >= 140) {
         blocknum[y].push(1);
       }
 
-      // dark grey
-      else if(catcolour[y][x][0] < 140 && catcolour[y][x][0] > 40 &&
-              catcolour[y][x][1] < 140 && catcolour[y][x][1] > 40 &&
-              catcolour[y][x][2] < 140 && catcolour[y][x][2] > 40){
+      //dark grey
+      else if (catcolour[y][x][0] < 140 && catcolour[y][x][0] > 40 &&
+        catcolour[y][x][1] < 140 && catcolour[y][x][1] > 40 &&
+        catcolour[y][x][2] < 140 && catcolour[y][x][2] > 40) {
         blocknum[y].push(2);
       }
 
-      // pink 
-      else if(catcolour[y][x][0] > catcolour[y][x][1] && catcolour[y][x][0] > catcolour[y][x][2]){
+      //pink 
+      else if (catcolour[y][x][0] > catcolour[y][x][1] && catcolour[y][x][0] > catcolour[y][x][2]) {
         blocknum[y].push(3);
       }
 
-      // black
-      else if(catcolour[y][x][0] <= 40 && catcolour[y][x][1] <= 40 && catcolour[y][x][2] <= 40
-              || catcolour[y][x][3] >= 200){
+      //black
+      else if (catcolour[y][x][0] <= 40 && catcolour[y][x][1] <= 40 && catcolour[y][x][2] <= 40
+        || catcolour[y][x][3] >= 200) {
         blocknum[y].push(4);
       }
-        
+
     }
   }
   return blocknum;
