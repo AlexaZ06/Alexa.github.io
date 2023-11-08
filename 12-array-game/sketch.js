@@ -6,15 +6,16 @@
 // Please consider the text in the box as my extre for experts
 // - https://p5js.org/reference/#/p5/text was used for help
 //
-// - Help from Mr Schellenberg to get colours from cat image
+// - Help from Mr Schellenberg to get colours from cat image and toggling the cells
+// - Erika also helped with toggling the cells
 
 //set variables and constants
 let grid;
 const GRID_SIZE = 40;
 let cellSize;
 let cat;
-let catcolour;
-let blocknumber;
+let catColour;
+let blockNumber;
 let colour;
 
 //load image to colour
@@ -36,8 +37,8 @@ function setup() {
 
   if (GRID_SIZE >= 40) {
     cat.resize(GRID_SIZE, GRID_SIZE);
-    catcolour = getCatColors(GRID_SIZE, GRID_SIZE);
-    blocknumber = number(GRID_SIZE, GRID_SIZE);
+    catColour = getCatColors(GRID_SIZE, GRID_SIZE);
+    blockNumber = number(GRID_SIZE, GRID_SIZE);
   }
   else {
     grid = generateEmptyGrid(GRID_SIZE, GRID_SIZE);
@@ -50,19 +51,19 @@ function draw() {
 
 //change colour of fill
 function keyTyped() {
-  if (key === "w") {
+  if (key === "0") {
     colour = 0;
   }
-  else if (key === "l") {
+  else if (key === "1") {
     colour = 1;
   }
-  else if (key === "g") {
+  else if (key === "2") {
     colour = 2;
   }
-  else if (key === "b") {
+  else if (key === "3") {
     colour = 3;
   }
-  else if (key === "w") {
+  else if (key === "4") {
     colour = 4;
   }
 }
@@ -79,52 +80,42 @@ function toggleCell(x, y) {
   //check that we are within the grid, then toggle
   if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
     // check for right colour then toggle to colour
-    for (let y = 0; y < GRID_SIZE; y++) {
-      for (let x = 0; x < GRID_SIZE; x++) {
-        if (blocknumber[y][x] === 0 && colour === 0) {
-          fill("white");
-        }
-        else if (blocknumber[y][x] === 1 && colour === 1) {
-          fill("lightgrey");
-        }
-        else if (blocknumber[y][x] === 2 && colour === 2) {
-          fill("grey");
-        }
-        else if (blocknumber[y][x] === 3 && colour === 3) {
-          fill("pink");
-        }
-        else if (blocknumber[y][x] === 4 && colour === 4) {
-          fill("black");
-        }
-        rect(x * cellSize, y * cellSize, cellSize, cellSize);
+    if (blockNumber[y][x] < 10) {
+      if (colour === 0){
+        blockNumber[y][x] += 10;
+      }
+      else if (colour === 1){
+        blockNumber[y][x] += 11;
+      }
+      else if (colour === 2){
+        blockNumber[y][x] += 20;
+      }
+      else if (colour === 3){
+        blockNumber[y][x] += 30;
+      }
+      else if (colour === 4){
+        blockNumber[y][x] += 40;
+      }
+    }
+    else if (blockNumber[y][x] >= 10){
+      if (colour === 0){
+        blockNumber[y][x] -= 10;
+      }
+      else if (colour === 1){
+        blockNumber[y][x] -= 11;
+      }
+      else if (colour === 2){
+        blockNumber[y][x] -= 20;
+      }
+      else if (colour === 3){
+        blockNumber[y][x] -= 30;
+      }
+      else if (colour === 4){
+        blockNumber[y][x] -= 40;
       }
     }
   }
 }
-
-// //colour/fill in cells
-// function colouredGrid(){
-//   for (let y = 0; y < GRID_SIZE; y++) {
-//     for (let x = 0; x < GRID_SIZE; x++) {
-//       if (blockNumber[y][x] === 0 && colour === 0) {
-//         fill("white");
-//       }
-//       else if (blockNumber[y][x] === 1 && colour === 1) {
-//         fill("lightgrey");
-//       }
-//       else if (blockNumber[y][x] === 2 && colour === 2) {
-//         fill("grey");
-//       }
-//       else if (blockNumber[y][x] === 3 && colour === 3) {
-//         fill("pink");
-//       }
-//       else if (blockNumber[y][x] === 4 && colour === 4) {
-//         fill("black");
-//       }
-//       rect(x * cellSize, y * cellSize, cellSize, cellSize);
-//     }
-//   }
-// }
 
 //show image in numbers
 function displayGrid() {
@@ -135,10 +126,31 @@ function displayGrid() {
         fill("lightblue");
         rect(x * cellSize, y * cellSize, cellSize, cellSize);
 
-        //fill in grid with numbers
-        fill("black");
-        textAlign(CENTER, CENTER);
-        text(blocknumber[y][x], x * cellSize, y * cellSize, cellSize, cellSize);
+        if (blockNumber[y][x] < 10) {
+          //fill in grid with numbers
+          fill("black");
+          textAlign(CENTER, CENTER);
+          text(blockNumber[y][x], x * cellSize, y * cellSize, cellSize, cellSize);
+        }
+        else {
+          //colour/fill in cells
+          if (blockNumber[y][x] === 10) {
+            fill("white");
+          }
+          else if (blockNumber[y][x] === 12) {
+            fill("lightgrey");
+          }
+          else if (blockNumber[y][x] === 22) {
+            fill("grey");
+          }
+          else if (blockNumber[y][x] === 33) {
+            fill("pink");
+          }
+          else if (blockNumber[y][x] === 44) {
+            fill("black");
+          }
+          rect(x * cellSize, y * cellSize, cellSize, cellSize);
+        }
       }
 
       else {
@@ -180,33 +192,33 @@ function number(cols, rows) {
     for (let x = 0; x < cols; x++) {
 
       //white
-      if (catcolour[y][x][0] >= 210 && catcolour[y][x][1] >= 210 && catcolour[y][x][2] >= 210
-        || catcolour[y][x][3] <= 40) {
+      if (catColour[y][x][0] >= 210 && catColour[y][x][1] >= 210 && catColour[y][x][2] >= 210
+        || catColour[y][x][3] <= 40) {
         blocknum[y].push(0);
       }
 
       //light grey
-      else if (catcolour[y][x][0] < 210 && catcolour[y][x][0] >= 140 &&
-        catcolour[y][x][1] < 210 && catcolour[y][x][1] >= 140 &&
-        catcolour[y][x][2] < 210 && catcolour[y][x][2] >= 140) {
+      else if (catColour[y][x][0] < 210 && catColour[y][x][0] >= 140 &&
+        catColour[y][x][1] < 210 && catColour[y][x][1] >= 140 &&
+        catColour[y][x][2] < 210 && catColour[y][x][2] >= 140) {
         blocknum[y].push(1);
       }
 
       //dark grey
-      else if (catcolour[y][x][0] < 140 && catcolour[y][x][0] > 40 &&
-        catcolour[y][x][1] < 140 && catcolour[y][x][1] > 40 &&
-        catcolour[y][x][2] < 140 && catcolour[y][x][2] > 40) {
+      else if (catColour[y][x][0] < 140 && catColour[y][x][0] > 40 &&
+        catColour[y][x][1] < 140 && catColour[y][x][1] > 40 &&
+        catColour[y][x][2] < 140 && catColour[y][x][2] > 40) {
         blocknum[y].push(2);
       }
 
       //pink 
-      else if (catcolour[y][x][0] > catcolour[y][x][1] && catcolour[y][x][0] > catcolour[y][x][2]) {
+      else if (catColour[y][x][0] > catColour[y][x][1] && catColour[y][x][0] > catColour[y][x][2]) {
         blocknum[y].push(3);
       }
 
       //black
-      else if (catcolour[y][x][0] <= 40 && catcolour[y][x][1] <= 40 && catcolour[y][x][2] <= 40
-        || catcolour[y][x][3] >= 200) {
+      else if (catColour[y][x][0] <= 40 && catColour[y][x][1] <= 40 && catColour[y][x][2] <= 40
+        || catColour[y][x][3] >= 200) {
         blocknum[y].push(4);
       }
 
