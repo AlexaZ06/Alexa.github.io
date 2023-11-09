@@ -3,11 +3,17 @@
 // November XX 2023
 //
 // Extra for Experts:
-// Please consider the text in the box as my extre for experts
+// Please consider the text in the box as my extra for experts
 // - https://p5js.org/reference/#/p5/text was used for help
 //
 // - Help from Mr Schellenberg to get colours from cat image and toggling the cells
 // - Erika also helped with toggling the cells
+//
+// To play:
+// - 0 is white, 1 is light grey, 2 is grey, 3 is pink, and 4 is black
+// - Click on the cell witht he coresponding colour to change the cell to that colour, clicking again changes it back
+// - if you want to restart reload the page and if you set the grid size too small the gridd will be empty
+// - That's it, have fun!
 
 //set variables and constants
 let grid;
@@ -49,7 +55,7 @@ function draw() {
   displayGrid();
 }
 
-//change colour of fill
+//change colour of fill base on key
 function keyTyped() {
   if (key === "0") {
     colour = 0;
@@ -81,36 +87,37 @@ function toggleCell(x, y) {
   if (x >= 0 && x < GRID_SIZE && y >= 0 && y < GRID_SIZE) {
     // check for right colour then toggle to colour
     if (blockNumber[y][x] < 10) {
-      if (colour === 0){
+      if (colour === 0 && blockNumber[y][x] === 0) {
         blockNumber[y][x] += 10;
       }
-      else if (colour === 1){
+      else if (colour === 1 && blockNumber[y][x] === 1) {
         blockNumber[y][x] += 11;
       }
-      else if (colour === 2){
+      else if (colour === 2 && blockNumber[y][x] === 2) {
         blockNumber[y][x] += 20;
       }
-      else if (colour === 3){
+      else if (colour === 3 && blockNumber[y][x] === 3) {
         blockNumber[y][x] += 30;
       }
-      else if (colour === 4){
+      else if (colour === 4 && blockNumber[y][x] === 4) {
         blockNumber[y][x] += 40;
       }
     }
-    else if (blockNumber[y][x] >= 10){
-      if (colour === 0){
+    //change block back to original colour
+    else if (blockNumber[y][x] >= 10) {
+      if (colour === 0 && blockNumber[y][x] === 10) {
         blockNumber[y][x] -= 10;
       }
-      else if (colour === 1){
+      else if (colour === 1 && blockNumber[y][x] === 12) {
         blockNumber[y][x] -= 11;
       }
-      else if (colour === 2){
+      else if (colour === 2 && blockNumber[y][x] === 22) {
         blockNumber[y][x] -= 20;
       }
-      else if (colour === 3){
+      else if (colour === 3 && blockNumber[y][x] === 33) {
         blockNumber[y][x] -= 30;
       }
-      else if (colour === 4){
+      else if (colour === 4 && blockNumber[y][x] === 44) {
         blockNumber[y][x] -= 40;
       }
     }
