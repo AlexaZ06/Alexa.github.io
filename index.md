@@ -12,6 +12,7 @@
 - [Conway's Game of Life](11-life)
 - [Character in Grid](13-character)
 - [Dog OOP Demo](14-dog-oop)
+- [Walker OOP Demo](15-walter-oop)
 
 ## Projects
 - [Interactive Scene](02-dodge)
