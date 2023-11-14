@@ -11,6 +11,7 @@
 - [Grid Neighbours](10-neighbours)
 - [Conway's Game of Life](11-life)
 - [Character in Grid](13-character)
+- [Dog OOP Demo](14-dog-oop)
 
 ## Projects
 - [Interactive Scene](02-dodge)
