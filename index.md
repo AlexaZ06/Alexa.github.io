@@ -15,6 +15,7 @@
 - [Walker OOP Demo](15-walter-oop)
 - [Ball Bouncing OOP Demo](16-ball-oop)
 - [Connected Ball OOP Demo](17-nodes)
+- [Firework OOP Demo](18-fireworks)
 
 ## Projects
 - [Interactive Scene](02-dodge)
