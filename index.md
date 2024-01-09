@@ -19,6 +19,7 @@
 - [Inheritance Demo](19-inheritance)
 - [Collision Demo](20-collision)
 - [Recursive Circles](21-circle-recursion)
+- [Sierpinski Triangle](22-sierpinski)
 
 ## Projects
 - [Interactive Scene](02-dodge)
